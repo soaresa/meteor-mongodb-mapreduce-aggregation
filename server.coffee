@@ -18,7 +18,9 @@ _futureWrapper = (collection, commandName, args)->
 
   future = new Future
   cb = future.resolver()
-  coll1[commandName](args, cb)
+  args = args.slice()
+  args.push(cb)
+  coll1[commandName].apply(coll1, args)
   result = future.wait()
 
 
@@ -52,17 +54,14 @@ _callMapReduce = (collection, map, reduce, options)->
 # Extending Collection on the server
 _.extend Meteor.Collection::,
 
-  distinct: (key) ->
+  distinct: (key, query, options) ->
     #_collectionDistinct @_name, key, query, options
-    _futureWrapper @_name, "distinct", key
+    _futureWrapper @_name, "distinct", [key, query, options]
 
   aggregate: (pipeline) ->
-    _futureWrapper @_name, "aggregate", pipeline
+    _futureWrapper @_name, "aggregate", [pipeline]
 
   mapReduce: (map, reduce, options)->
     options = options || {};
     options.readPreference = "primary";
     _callMapReduce @_name, map, reduce, options
-
-
-
