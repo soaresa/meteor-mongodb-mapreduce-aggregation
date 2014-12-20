@@ -2,7 +2,6 @@ tl = TLog?.getLogger()
 #hacky advanced mongo definitions based on https://github.com/meteor/meteor/pull/644
 
 path = Npm.require("path")
-MongoDB = Npm.require("mongodb")
 Future = Npm.require(path.join("fibers", "future"))
 
 _dummyCollection_ = new Meteor.Collection '__dummy__'
