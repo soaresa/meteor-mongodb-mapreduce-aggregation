@@ -1,3 +1,5 @@
+This is monbro:meteor-mongodb-mapreduce-aggregation wihout dependency on CoffeeScript and Underscore 
+
 meteor-mongodb-mapreduce-aggregation
 ====================================
 
